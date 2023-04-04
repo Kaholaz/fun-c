@@ -68,6 +68,31 @@ int main(int argc, char *argv[])
     
     free(mapped);
 
+    // Filter
+    arr = (struct array_t) {
+        .arr = (int []) { 1, 2, 3, 4, 5 },
+        .len = 5
+    };
+    int *filtered = FILTER(arr, LAMBDA(int, (int i), {
+        return i % 2 == 0;
+    })).arr;
+
+    printf("Filtered: ");
+    print_int_array(filtered, 2);
+
+    free(filtered);
+
+    // Reduce
+    arr = (struct array_t) {
+        .arr = (int []) { 1, 2, 3, 4, 5 },
+        .len = 5
+    };
+    int reduced = REDUCE(arr, 0, LAMBDA(int, (int a, int b), {
+        return a + b;
+    }));
+
+    printf("Reduced: %d\n", reduced);
+
     // Pipe
     int (*add_one)(int) = LAMBDA(int, (int i), {
         return i + 1;

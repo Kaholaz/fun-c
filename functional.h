@@ -83,6 +83,43 @@ struct array_t {
 })
 
 /**
+ * Macro to iterate and apply a filter.
+ * @param array The array to iterate over.
+ * @param func Any element that the function does noe evaluate to a true-ish value is excluded.
+ */
+#define FILTER(array, func)\
+({\
+    int *filter_arr = malloc(sizeof(int) * array.len);\
+    struct array_t filtered = {\
+        .arr = filter_arr,\
+        .len = 0\
+    };\
+    for (int i = 0; i < array.len; i++)\
+        if (func(array.arr[i])) {\
+            filtered.arr[filtered.len] = array.arr[i];\
+            filtered.len++;\
+        }\
+    printf("FILTER!\n");\
+    filtered;\
+})
+
+
+/**
+ * Macro to sequentially apply a function to reduce an array to one value.
+ * @param array The array to iterate over.
+ * @param initial The initial value to reduce from. If the array is empty, this is returned.
+ * @param func The function to call for each pair of elements.
+ */
+#define REDUCE(array, initial, func)\
+({\
+    int reduced = initial;\
+    for (int i = 0; i < array.len; i++)\
+        reduced = func(reduced, array.arr[i]);\
+    printf("REDUCE!\n");\
+    reduced;\
+})
+
+/**
  * Function to pipe a value into a function.
  * @param value The value to pipe.
  * @param ... The functions to pipe the value through.

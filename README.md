@@ -6,8 +6,8 @@ A lightweight functional library for C.
 - [x] Anonymous function
 - [x] For each
 - [ ] Collecting
-- [ ] Reducing
-- [ ] Filtering
+- [x] Reducing
+- [x] Filtering
 - [x] Mapping
 - [ ] Prettier piping
 - Adding more goals as more comes to mind.
